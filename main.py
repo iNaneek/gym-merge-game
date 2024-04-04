@@ -39,7 +39,7 @@ class Bros:
 
 brosDict = {}
 
-brosDict[len(brosDict)] = Bros(4)
+brosDict[len(brosDict)] = Bros(0)
 brosDict[len(brosDict)] = Bros(0)
 
 
@@ -74,14 +74,16 @@ while running:
             bro.pos = mousePos
         bro.drawSelf()
 
-    toMerge = []
+    toMerge = None
     for k1 in brosDict.keys():
         for k2 in brosDict.keys():
             if k1 != k2 and abs(brosDict[k1].pos[0] - brosDict[k2].pos[0]) + abs(brosDict[k1].pos[1] - brosDict[k2].pos[1]) < 30:
-                toMerge.append((k1, k2))
-    for keys in toMerge:
-        #brosDict[k1].rank = 2
-        brosDict.pop(keys[1]) #
+                toMerge = (k1, k2)
+    if toMerge:
+        if brosDict[toMerge[0]].rank == brosDict[toMerge[1]].rank and brosDict[toMerge[0]].rank != 4:
+            brosDict[toMerge[0]].rank += 1
+            brosDict[toMerge[0]].findRank()
+            brosDict.pop(toMerge[1])
 
         
     
