@@ -47,7 +47,11 @@ brosDict[len(brosDict)] = Bros(0)
 while running:
     screen.fill((255, 255, 255))  # fills screen background
     screen.blit(pictureBackground, (0, 0))
-@@ -55,22 +55,34 @@ def move(self):
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            #exit()
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
