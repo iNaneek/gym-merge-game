@@ -13,6 +13,7 @@ running = True #when set as false, the window closes. used in whileloop further 
 pictureBackground = pygame.transform.scale(pygame.image.load('Gym Background.png'), (1000, 500))
 class Bros:
     ranks = (
+        (100, pygame.transform.scale(pygame.image.load('crack.png'), (100, 100))),
         (60, pygame.transform.scale(pygame.image.load('Bench - Bar.png'), (60, 60))),
         (80, pygame.transform.scale(pygame.image.load('Bench - 10.png'), (80, 80))),
         (100, pygame.transform.scale(pygame.image.load('Bench - 25.png'), (100, 100))),
@@ -61,6 +62,10 @@ while running:
             mousePos = pygame.mouse.get_pos()
             for bro in brosDict.values():
                 if abs(bro.pos[0] - mousePos[0]) < bro.size / 2 and abs(bro.pos[1] - mousePos[1]) < bro.size / 2 and selected == False:
+                    if bro.rank == 0:
+                        bro.rank = 1
+                        bro.findRank()
+                        break
                     bro.onMouse = True
                     selected = True
                     break
@@ -83,7 +88,7 @@ while running:
         if brosDict[toMerge[0]].rank == brosDict[toMerge[1]].rank and brosDict[toMerge[0]].rank != 4:
             brosDict[toMerge[0]].rank += 1
             brosDict[toMerge[0]].findRank()
-            brosDict.pop(toMerge[1]) #
+            brosDict.pop(toMerge[1]) 
 
         
     
@@ -93,3 +98,5 @@ while running:
     pygame.display.update()
     clock.tick(60)
     #print('frame')
+
+
