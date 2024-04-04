@@ -81,7 +81,7 @@ while running:
                 toMerge.append((k1, k2))
     for keys in toMerge:
         #brosDict[k1].rank = 2
-        brosDict.pop(keys[1])
+        brosDict.pop(keys[1]) #
 
         
     
