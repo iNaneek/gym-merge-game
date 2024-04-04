@@ -83,7 +83,7 @@ while running:
         if brosDict[toMerge[0]].rank == brosDict[toMerge[1]].rank and brosDict[toMerge[0]].rank != 4:
             brosDict[toMerge[0]].rank += 1
             brosDict[toMerge[0]].findRank()
-            brosDict.pop(toMerge[1])
+            brosDict.pop(toMerge[1]) #
 
         
     
