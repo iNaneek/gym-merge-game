@@ -10,7 +10,7 @@ background = pygame.Surface((820, 820))
 background.fill((42, 42, 255))#sets up the window
 running = True #when set as false, the window closes. used in whileloop further down
 
-
+pictureBackground = pygame.transform.scale(pygame.image.load('Gym Background.png'), (1000, 500))
 class Bros:
     ranks = (
         (60, pygame.transform.scale(pygame.image.load('Bench - Bar.png'), (60, 60))),
@@ -46,6 +46,7 @@ brosDict[len(brosDict)] = Bros(0)
 
 while running:
     screen.fill((255, 255, 255))  # fills screen background
+    screen.blit(pictureBackground, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
