@@ -43,51 +43,34 @@ brosDict[len(brosDict)] = Bros(4)
 brosDict[len(brosDict)] = Bros(0)
 
 
-selected = False
+
 while running:
     screen.fill((255, 255, 255))  # fills screen background
     screen.blit(pictureBackground, (0, 0))
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            #exit()
+@@ -55,22 +55,34 @@ def move(self):
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
-                brosDict[list(brosDict)[-1] + 1] = Bros(0)
+                brosDict[len(brosDict)] = Bros(0)
         mouseClick = pygame.mouse.get_pressed(num_buttons=3)[0]
         if mouseClick == True:
             mousePos = pygame.mouse.get_pos()
             for bro in brosDict.values():
-                if abs(bro.pos[0] - mousePos[0]) < bro.size / 2 and abs(bro.pos[1] - mousePos[1]) < bro.size / 2 and selected == False:
+                if abs(bro.pos[0] - mousePos[0]) < bro.size / 2 and abs(bro.pos[1] - mousePos[1]) < bro.size / 2:
                     bro.onMouse = True
-                    selected = True
                     break
         if mouseClick == False:
             for bro in brosDict.values():
                 bro.onMouse = False
-            selected = False
-    
+
     for bro in brosDict.values():
         if bro.onMouse == True:
             bro.pos = mousePos
         bro.drawSelf()
 
-    toMerge = []
-    for k1 in brosDict.keys():
-        for k2 in brosDict.keys():
-            if k1 != k2 and abs(brosDict[k1].pos[0] - brosDict[k2].pos[0]) + abs(brosDict[k1].pos[1] - brosDict[k2].pos[1]) < 30:
-                toMerge.append((k1, k2))
-    for keys in toMerge:
-        #brosDict[k1].rank = 2
-        brosDict.pop(keys[1])
 
-        
-    
     pygame.draw.circle(screen, (255, 0, 0), (500, 250), 3)
     
-
     pygame.display.update()
     clock.tick(60)
-    #print('frame')
+#print('frame')
