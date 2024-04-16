@@ -1,5 +1,7 @@
 import pygame
 import random
+import math
+
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 500))
@@ -25,7 +27,7 @@ class Bros:
         #print(self.pos)
         self.rank = rank
         self.onMouse = False
-        self.size = self.ranks[self.rank][0]\
+        self.size = self.ranks[self.rank][0]
         
     def findRank(self):
         self.size = self.ranks[self.rank][0]
@@ -79,16 +81,16 @@ while running:
             bro.pos = mousePos
         bro.drawSelf()
 
-    toMerge = None
+    rahVal = None
     for k1 in brosDict.keys():
         for k2 in brosDict.keys():
             if k1 != k2 and abs(brosDict[k1].pos[0] - brosDict[k2].pos[0]) + abs(brosDict[k1].pos[1] - brosDict[k2].pos[1]) < 30:
-                toMerge = (k1, k2)
-    if toMerge:
-        if brosDict[toMerge[0]].rank == brosDict[toMerge[1]].rank and brosDict[toMerge[0]].rank != 4:
-            brosDict[toMerge[0]].rank += 1
-            brosDict[toMerge[0]].findRank()
-            brosDict.pop(toMerge[1]) 
+                rahVal = (k1, k2)
+    if rahVal:
+        if brosDict[rahVal[0]].rank == brosDict[rahVal[1]].rank and brosDict[rahVal[0]].rank != 5:
+            brosDict[rahVal[0]].rank += 1
+            brosDict[rahVal[0]].findRank()
+            brosDict.pop(rahVal[1]) 
 
         
     
