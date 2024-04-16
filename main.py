@@ -1,5 +1,7 @@
 import pygame
 import random
+import math
+
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 500))
@@ -13,6 +15,7 @@ running = True #when set as false, the window closes. used in whileloop further 
 pictureBackground = pygame.transform.scale(pygame.image.load('Gym Background.png'), (1000, 500))
 class Bros:
     ranks = (
+        (100, pygame.transform.scale(pygame.image.load('crack.png'), (100, 100))),
         (60, pygame.transform.scale(pygame.image.load('Bench - Bar.png'), (60, 60))),
         (80, pygame.transform.scale(pygame.image.load('Bench - 10.png'), (80, 80))),
         (100, pygame.transform.scale(pygame.image.load('Bench - 25.png'), (100, 100))),
@@ -24,7 +27,7 @@ class Bros:
         #print(self.pos)
         self.rank = rank
         self.onMouse = False
-        self.size = self.ranks[self.rank][0]\
+        self.size = self.ranks[self.rank][0]
         
     def findRank(self):
         self.size = self.ranks[self.rank][0]
@@ -39,11 +42,11 @@ class Bros:
 
 brosDict = {}
 
-brosDict[len(brosDict)] = Bros(4)
+brosDict[len(brosDict)] = Bros(0)
 brosDict[len(brosDict)] = Bros(0)
 
 
-
+selected = False
 while running:
     screen.fill((255, 255, 255))  # fills screen background
     screen.blit(pictureBackground, (0, 0))
@@ -55,26 +58,45 @@ while running:
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
-                brosDict[len(brosDict)] = Bros(0)
+                brosDict[list(brosDict)[-1] + 1] = Bros(0)
         mouseClick = pygame.mouse.get_pressed(num_buttons=3)[0]
         if mouseClick == True:
             mousePos = pygame.mouse.get_pos()
             for bro in brosDict.values():
-                if abs(bro.pos[0] - mousePos[0]) < bro.size / 2 and abs(bro.pos[1] - mousePos[1]) < bro.size / 2:
+                if abs(bro.pos[0] - mousePos[0]) < bro.size / 2 and abs(bro.pos[1] - mousePos[1]) < bro.size / 2 and selected == False:
+                    if bro.rank == 0:
+                        bro.rank = 1
+                        bro.findRank()
+                        break
                     bro.onMouse = True
+                    selected = True
                     break
         if mouseClick == False:
             for bro in brosDict.values():
                 bro.onMouse = False
-
+            selected = False
+    
     for bro in brosDict.values():
         if bro.onMouse == True:
             bro.pos = mousePos
         bro.drawSelf()
 
+    rahVal = None
+    for k1 in brosDict.keys():
+        for k2 in brosDict.keys():
+            if k1 != k2 and abs(brosDict[k1].pos[0] - brosDict[k2].pos[0]) + abs(brosDict[k1].pos[1] - brosDict[k2].pos[1]) < 30:
+                rahVal = (k1, k2)
+    if rahVal:
+        if brosDict[rahVal[0]].rank == brosDict[rahVal[1]].rank and brosDict[rahVal[0]].rank != 5:
+            brosDict[rahVal[0]].rank += 1
+            brosDict[rahVal[0]].findRank()
+            brosDict.pop(rahVal[1]) 
 
+        
+    
     pygame.draw.circle(screen, (255, 0, 0), (500, 250), 3)
     
+
     pygame.display.update()
     clock.tick(60)
-#print('frame')
+    #print('frame')
