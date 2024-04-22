@@ -45,11 +45,16 @@ brosDict = {}
 brosDict[len(brosDict)] = Bros(0)
 brosDict[len(brosDict)] = Bros(0)
 
-
+timer = 0
 selected = False
 while running:
     screen.fill((255, 255, 255))  # fills screen background
     screen.blit(pictureBackground, (0, 0))
+
+    timer += 1
+    
+    if timer%100 == 1:
+        brosDict[list(brosDict)[-1] + 1] = Bros(0)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
