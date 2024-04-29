@@ -1,5 +1,6 @@
 import pygame
 import random
+#Protein Powder Image From Optimum Nutrition: https://www.optimumnutrition.com/en-us/Products/Shakes-&-Powders/Gold-Standard-100%25-Whey-Protein/p/gold-standard-100-whey-protein
 
 #Initialize the game window
 pygame.init()
