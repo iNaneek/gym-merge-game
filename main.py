@@ -42,7 +42,8 @@ def findRahVal(allCharacter):
     for k1 in allCharacter.keys():
         for k2 in allCharacter.keys():
             if k1 != k2 and abs(allCharacter[k1].position[0] - allCharacter[k2].position[0]) + abs(allCharacter[k1].position[1] - allCharacter[k2].position[1]) < 30:
-                return (k1, k2)
+                if allCharacter[k1].rank == allCharacter[k2].rank and allCharacter[k1].rank != 5:
+                    return (k1, k2)
 
 #Initializes the Dictionary that holds each object on screen
 characterDictionary = {}
@@ -108,10 +109,9 @@ while running:
 
     #Using previously found characters, one item is deleted and the other ranks up, effectively merging the two. Also makes sure that characters don't merge above the maximum rank
     if rahVal:
-        if characterDictionary[rahVal[0]].rank == characterDictionary[rahVal[1]].rank and characterDictionary[rahVal[0]].rank != 5:
-            characterDictionary[rahVal[0]].rank += 1
-            characterDictionary[rahVal[0]].rankChange()
-            characterDictionary.pop(rahVal[1]) 
+        characterDictionary[rahVal[0]].rank += 1
+        characterDictionary[rahVal[0]].rankChange()
+        characterDictionary.pop(rahVal[1]) 
     
     #Updates the screen and sets the framerate to 60 FPS
     pygame.display.update()
